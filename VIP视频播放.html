@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh - CN">
+
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>VIP视频播放</title>
+    <style>
+        body {
+            font-family: Arial, sans - serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            /* 过渡效果，使背景颜色变化更平滑 */
+            transition: background-color 1s ease;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        #clearButton {
+            margin-top: 0;
+        }
+
+        button:not(#clearButton):not([onclick="playVIPVideo()"]) {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>VIP视频播放</h1>
+    <div>
+        <label for="movieLink">网页视频链接：</label>
+        <input type="text" id="movieLink" />
+        <button id="clearButton" onclick="clearInput()">清空输入框</button>
+        <button onclick="openIqy()">爱奇艺(网页跳转)</button>
+        <button onclick="openTx()">腾讯视频(网页跳转)</button>
+        <button onclick="openYq()">优酷视频(网页跳转)</button>
+        <button onclick="playVIPVideo()">播放VIP视频</button>
+        <p>提示：将视频链接复制到框内，点击播放VIP视频</p>
+    </div>
+
+    <script>
+        function openIqy() {
+            window.open('https://www.iqiyi.com');
+        }
+
+        function openTx() {
+            window.open('https://v.qq.com');
+        }
+
+        function openYq() {
+            window.open('https://www.youku.com/');
+        }
+
+        function playVIPVideo() {
+            var url = 'https://jx.xmflv.cc/?url=';
+            var video = document.getElementById('movieLink').value;
+            window.open(url + video);
+        }
+
+        function clearInput() {
+            document.getElementById('movieLink').value = '';
+        }
+        // 预定义颜色数组
+        const colors = ['#e6f7ff', '#d0f0c0', '#fde7e8', '#eef2ff', '#f0f9eb','#e0ffff','#fff0f5','#ffe4c4'];
+        let currentIndex = 0;
+
+        function changeBackgroundColor() {
+            // 获取当前颜色
+            const currentColor = colors[currentIndex];
+            // 获取下一个颜色的索引
+            currentIndex = (currentIndex + 1) % colors.length;
+            const nextColor = colors[currentIndex];
+            // 改变背景颜色
+            document.body.style.backgroundColor = nextColor;
+        }
+
+        // 每隔3秒调用一次改变背景颜色的函数
+        setInterval(changeBackgroundColor, 3000);
+    </script>
+</body>
+
+</html>
